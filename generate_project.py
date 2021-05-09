@@ -64,17 +64,18 @@ if __name__ == "__main__":
         print("Usage: python3 generate_project.py [PATH_TO_PROJECT_TEMPLATE] [PATH_TO_PROJECT]")
         exit(1)
 
-    prj_template_file = open(sys.argv[1])
+    template_path = os.path.abspath(sys.argv[1])
+    prj_template_file = open(template_path)
 
     if not prj_template_file:
         print("Can't open file by such path")
         exit(1)
 
-    path_to_prj_folder = sys.argv[2] + '/'
+    path_to_prj_folder = os.path.abspath(sys.argv[2] + '/')
 
     os.makedirs(path_to_prj_folder, exist_ok=True)
 
     prj_template_dom = xml.etree.ElementTree.parse(prj_template_file)
     prj_tree_node = prj_template_dom.getroot()
 
-    processNode(prj_tree_node, path_to_prj_folder, os.path.dirname(sys.argv[1]))
+    processNode(prj_tree_node, path_to_prj_folder, os.path.dirname(template_path))

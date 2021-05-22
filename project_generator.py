@@ -13,6 +13,8 @@ def processNode(node, prj_path, tmpl_dir_path):
             processFolderNode(item, prj_path, tmpl_dir_path)
         elif item_type == 'file':
             processFileNode(item, prj_path, tmpl_dir_path)
+        elif item_type == 'action':
+            continue
         else:
             print("Unknown item type")
             exit(1)
@@ -51,9 +53,12 @@ def processActionNode(node, prj_path, tmpl_dir_path, src_file):
 
 
 def processCopyPasteActionNode(node, prj_path, tmpl_dir_path):
-    to_copy = node.find('to_copy').text
+    to_copy = tmpl_dir_path + node.find('to_copy').text
 
-    shutil.copy(tmpl_dir_path + to_copy, prj_path)
+    if os.path.isdir(to_copy):
+        shutil.copytree(to_copy, prj_path, dirs_exist_ok=True)
+    else:
+        shutil.copy(to_copy, prj_path)
 
 
 def processInsertActionNode(node, prj_path, file_to_insert):
@@ -101,6 +106,9 @@ def processFolderNode(node, prj_path, tmpl_dir_path):
     tmpl_dir_path = tmpl_dir_path + folder_name
 
     os.makedirs(folder_path, exist_ok=True)
+
+    for action in node.iter('action'):
+        processActionNode(action, folder_path, tmpl_dir_path, '')
 
     processNode(node, folder_path, tmpl_dir_path)
 

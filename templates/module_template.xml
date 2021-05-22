@@ -1,0 +1,32 @@
+<project_tree>
+    <item type="folder" name="src">
+        <item type="file" name="CMakeLists.txt">
+            <action>
+                <action_name>insert</action_name>
+                <to_insert>add_subdirectory(@ENTITY_NAME@)</to_insert>
+                <hint>add_subdirectory</hint>
+                <search_by>back</search_by>
+            </action>
+        </item>
+
+        <item type="folder" name="@ENTITY_NAME@">
+            <item type="folder" name="include">
+                <item type="folder" name="@ENTITY_NAME@">
+                </item>
+
+                <item type="file" name="CMakeLists.txt">
+                    <data/>
+                </item>
+            </item>
+
+            <item type="file" name="CMakeLists.txt">
+                <data>
+add_library(@ENTITY_NAME@)
+
+target_include_directories(@ENTITY_NAME@)
+                </data>
+            </item>
+        </item>
+
+    </item>
+</project_tree>

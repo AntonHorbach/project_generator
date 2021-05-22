@@ -1,0 +1,82 @@
+<project_tree>
+    <item type="folder" name="cmake">
+        <action type="action">
+            <action_name>copy-paste</action_name>
+            <to_copy>./</to_copy>
+        </action>
+    </item>
+
+    <item type="folder" name="sandbox"/>
+
+    <item type="folder" name="templates">
+        <action type="action">
+            <action_name>copy-paste</action_name>
+            <to_copy>../</to_copy>
+        </action>
+    </item>
+
+    <item type="folder" name="src">
+        <item type="folder" name="include">
+            <item type="folder" name="@ENTITY_NAME@">
+                <item type="file" name="config.hpp.in">
+                    <data>
+#ifndef @PROJECT_NAME@_CONFIG_HPP
+#define @PROJECT_NAME@_CONFIG_HPP
+
+#define PROJECT_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define PROJECT_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define PROJECT_VERSION_PATCH @PROJECT_VERSION_PATCH@
+
+#endif
+                    </data>
+                </item>
+            </item>
+
+            <item type="file" name="CMakeLists.txt">
+                <data/>
+            </item>
+        </item>
+
+        <item type="file" name="CMakeLists.txt">
+            <data/>
+        </item>
+
+        <item type="file" name="main.cpp">
+            <data>
+#include "@ENTITY_NAME@/config.h
+int main()
+{
+    return 0;
+}
+            </data>
+        </item>
+    </item>
+
+    <item type="file" name="conanfile.txt">
+        <data>
+[requires]
+
+[generators]
+cmake
+cmake_find_package
+        </data>
+    </item>
+
+    <item type="file" name=".gitignore">
+        <data/>
+
+        <action>
+            <action_name>copy-paste</action_name>
+            <to_copy>.gitignore</to_copy>
+        </action>
+    </item>
+
+    <item type="file" name="CMakeLists.txt">
+        <data/>
+
+        <action>
+            <action_name>copy-paste</action_name>
+            <to_copy>CMakeLists.txt</to_copy>
+        </action>
+    </item>
+</project_tree>

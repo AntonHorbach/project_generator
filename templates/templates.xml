@@ -1,0 +1,4 @@
+<templates>
+    <template name="new_project">project_template.xml</template>
+    <template name="new_module">module_template.xml</template>
+</templates>

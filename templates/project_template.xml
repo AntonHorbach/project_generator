@@ -74,4 +74,21 @@ cmake_find_package
             <to_copy>CMakeLists.txt</to_copy>
         </action>
     </item>
+
+    <item type="file" name="LICENSE">
+        <data/>
+
+        <action>
+            <action_name>copy-paste</action_name>
+            <to_copy>LICENSE</to_copy>
+        </action>
+    </item>
+
+    <item type="file" name="README.md">
+        <data>
+# @ENTITY_NAME@
+
+
+        </data>
+    </item>
 </project_tree>

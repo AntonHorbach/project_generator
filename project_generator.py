@@ -14,7 +14,7 @@ def processNode(node, prj_path, tmpl_dir_path):
         elif item_type == 'file':
             processFileNode(item, prj_path, tmpl_dir_path)
         elif item_type == 'action':
-            continue
+            processActionNode(item, prj_path, tmpl_dir_path, '')
         else:
             print("Unknown item type")
             exit(1)
@@ -63,18 +63,14 @@ def processCopyPasteActionNode(node, prj_path, tmpl_dir_path):
 
 def processInsertActionNode(node, prj_path, file_to_insert):
     file_to_insert = prj_path + file_to_insert
-    data_to_insert = node.find('to_insert').text
-    search_by = 'forward'
+    data_to_insert = node.find('to_insert').text + '\n'
     hint_to_insert = node.find('hint').text
-    search_by_node = node.find('search_by')
-
-    if search_by_node and search_by_node.text == "back":
-        search_by = "back"
+    search_by = node.find('search_by').text
 
     file_lines = list(open(file_to_insert, 'r'))
 
-    if search_by == "back":
-        file_lines = reversed(file_lines)
+    if search_by == 'back':
+        file_lines = list(reversed(file_lines))
 
     inserted = False
 
@@ -85,7 +81,7 @@ def processInsertActionNode(node, prj_path, file_to_insert):
             break
 
     if search_by == "back":
-        file_lines = reversed(file_lines)
+        file_lines = list(reversed(file_lines))
 
     if not inserted:
         file_lines.append(data_to_insert)
@@ -106,9 +102,6 @@ def processFolderNode(node, prj_path, tmpl_dir_path):
     tmpl_dir_path = tmpl_dir_path + folder_name
 
     os.makedirs(folder_path, exist_ok=True)
-
-    for action in node.iter('action'):
-        processActionNode(action, folder_path, tmpl_dir_path, '')
 
     processNode(node, folder_path, tmpl_dir_path)
 

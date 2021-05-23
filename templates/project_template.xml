@@ -8,12 +8,7 @@
 
     <item type="folder" name="sandbox"/>
 
-    <item type="folder" name="templates">
-        <action type="action">
-            <action_name>copy-paste</action_name>
-            <to_copy>../</to_copy>
-        </action>
-    </item>
+    <item type="folder" name="@__TEMPLATE_DIR__@templates"/>
 
     <item type="folder" name="src">
         <item type="folder" name="include">

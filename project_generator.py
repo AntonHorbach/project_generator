@@ -92,13 +92,22 @@ def processInsertActionNode(node, prj_path, file_to_insert):
 
 def processFolderNode(node, prj_path, tmpl_dir_path):
     folder_name = node.attrib['name'] + '/'
+    template_dir_macro = '@__TEMPLATE_DIR__@'
 
     for macro in macros_dictionary:
         if macro in folder_name:
             folder_name = folder_name.replace(macro, macros_dictionary[macro])
             break
 
-    folder_path = prj_path + folder_name
+    folder_path = prj_path
+
+    if template_dir_macro in folder_name:
+        folder_name = folder_name.replace(template_dir_macro, '')
+        folder_path = folder_path + folder_name
+        template_copy_dir_paths.append(folder_path)
+    else:
+        folder_path = folder_path + folder_name
+
     tmpl_dir_path = tmpl_dir_path + folder_name
 
     os.makedirs(folder_path, exist_ok=True)
@@ -201,6 +210,8 @@ if __name__ == "__main__":
     os.makedirs(path_to_prj_folder, exist_ok=True)
 
     templates_filenames = getTemplatesFileNames(template_dir_path)
+    template_copy_dir_paths = []
+
     macros_dictionary = {}
 
     if len(sys.argv) >= 5:
@@ -214,4 +225,7 @@ if __name__ == "__main__":
 
     if len(macros_dictionary.keys()) > 0:
         processMacros(macros_dictionary)
+
+    for template_copy_dir_path in template_copy_dir_paths:
+        shutil.copytree(template_dir_path, template_copy_dir_path, dirs_exist_ok=True)
 

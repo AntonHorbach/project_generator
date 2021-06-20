@@ -11,10 +11,11 @@
     <item type="folder" name="@__TEMPLATE_DIR__@templates"/>
 
     <item type="folder" name="src">
-        <item type="folder" name="include">
-            <item type="folder" name="@ENTITY_NAME@">
-                <item type="file" name="config.hpp.in">
-                    <data>
+        <item type="folder" name="@ENTITY_NAME@">
+            <item type="folder" name="include">
+                <item type="folder" name="@ENTITY_NAME@">
+                    <item type="file" name="config.hpp.in">
+                        <data>
 #ifndef @PROJECT_NAME@_CONFIG_HPP
 #define @PROJECT_NAME@_CONFIG_HPP
 
@@ -23,27 +24,28 @@
 #define PROJECT_VERSION_PATCH @PROJECT_VERSION_PATCH@
 
 #endif
-                    </data>
+                        </data>
+                    </item>
                 </item>
             </item>
 
             <item type="file" name="CMakeLists.txt">
-                <data/>
+                <data>
+add_@PROJECT_TYPE@(@ENTITY_NAME@)
+
+target_link_directories(@ENTITY_NAME@ PRIVATE ${CMAKE_SOURCE_CURRENT_DIR}/include/)
+                </data>
+            </item>
+
+            <item type="file" name="@ENTITY_NAME.cpp">
+                <data>
+#include "@ENTITY_NAME@/config.h"
+                </data>
             </item>
         </item>
 
         <item type="file" name="CMakeLists.txt">
-            <data/>
-        </item>
-
-        <item type="file" name="main.cpp">
-            <data>
-#include "@ENTITY_NAME@/config.h
-int main()
-{
-    return 0;
-}
-            </data>
+add_subdirectory(@ENTITY_NAME@)
         </item>
     </item>
 

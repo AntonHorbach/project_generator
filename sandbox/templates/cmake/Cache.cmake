@@ -1,8 +1,0 @@
-if (ENABLE_CACHE)
-    find_program(CCACHE ccache)
-    if (CCACHE)
-        set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
-    else()
-        message(WARNING "cache is enabled but was not found.")
-    endif ()
-endif ()

@@ -1,0 +1,7 @@
+
+[requires]
+
+[generators]
+cmake
+cmake_find_package
+        
